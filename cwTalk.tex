@@ -102,19 +102,33 @@ Clojure offers:
 \item Beginner-friendly project manager. 
 %\item Can't expect new students use emacs/vim and command line (at least if we want to keep CS enrollments/diversity). 
 \item Beginner-friendly graphical libraries. 
+\item More uniform behavior of strings, collections vs sequences, etc.   {\tt give an example}
 \item Beginner-friendly textbooks (focus on concepts, use language as a learning tool). 
 \end{itemize}
 \end{frame}
 
 \section{Error messages transformations}
-
 \begin{frame}
    \frametitle{(Non)Usability of error messages}
+ {\tt give an example -- perhaps better to just give an example?}
 \begin{itemize}
-\item 
+\item Phrased in terms of Java types.
+\item Java stack trace. 
+\item Often misleading. 
+\item Not particularly well integrated with IDEs (LightTable does some line highlighting). 
+\item Come from compiler, run-time system, REPL, testing frameworks (makes integration with IDE difficult). 
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+   \frametitle { What do we do about error messages}
+\begin{itemize}
+\item {\tt Post-processing Clojure messages}. 
+\item Filter stack trace.
+\item Transform using regular expressions. 
+\item Add pre-conditions to common functions ({\tt map, filter,} etc). 
+\end{itemize}
+\end{frame}
 
 \subsection{Regular expressions}
 
@@ -124,13 +138,42 @@ Clojure offers:
 
 \section{Beginner-friendly tools}
 
+\begin{frame}
+   \frametitle{Error messages processing}
+\begin{itemize}
+\item Minimal interference with IDE or leiningen.
+\item Need to catch error messages from compiler,  run-time system, REPL, testing.
+\item Looked into: integrating with IDE (LightTable), leiningen plugin. 
+\item Current plan for catching error messages: {\tt nrepl} middleware. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Leiningen plugin}
+\begin{itemize}
+\item Need to load functions with pre-conditions (and perhaps more) into student code. 
+\item 
+\item 
+\end{itemize}
+\end{frame}
+
 \section{Future work (lots of it!), acknowledgments}
+
+\begin{frame}
+   \frametitle{Future work}
+\begin{itemize}
+\item 
+\item Usability studies. 
+\item 
+\end{itemize}
+\end{frame}
 
 \begin{frame}
    \frametitle{Many thanks to:}
 \begin{itemize}
-\item 
-\item 
+\item UMM students who started this project: Brian Goslinga, Stephen Adams, Joe Einertson. 
+\item UMM students who worked on it in 2013/15: Max Magnuson, Paul Schliep, Henry Fellows, Emma Sax, Aaron Lemmon. 
+\item My Clojure-inclined colleagues and friends: Jon Anthony, Michael Bukatin, Simon Hawkin, Nic McPhee. 
 \item MN Clojure group and Boston Clojure meetup. 
 \end{itemize}
 \end{frame}
