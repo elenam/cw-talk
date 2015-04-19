@@ -133,6 +133,35 @@ Clojure offers:
 \subsection{Regular expressions}
 
 \subsection{Pre-conditions}
+\begin{frame}[fragile]
+   \frametitle {Adding pre-conditions to common functions }
+Student code:
+\begin{verbatim}
+(map "inc" [1 2 3])
+\end{verbatim} 
+
+Original error message:
+\begin{verbatim}
+ClassCastException java.lang.String cannot be cast to
+clojure.lang.IFn  clojure.core/map/fn--4245 (core.clj:257)
+\end{verbatim} 
+
+Our error message: 
+\begin{verbatim}
+In function map, the first argument "inc" must be
+a function but is a string.
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+ \frametitle {Benefits and issues}
+\begin{itemize}
+\item Can determine specific arguments that caused an error. 
+\item Need to overwrite many functions (e.g. arithmetic functions).
+\item 
+\item We overwrite predefined functions: need to load them into student code. 
+\end{itemize}
+\end{frame}
 
 \subsection{Idea: hints and scenarios}
 
@@ -173,7 +202,7 @@ Clojure offers:
 \begin{itemize}
 \item UMM students who started this project: Brian Goslinga, Stephen Adams, Joe Einertson. 
 \item UMM students who worked on it in 2013/15: Max Magnuson, Paul Schliep, Henry Fellows, Emma Sax, Aaron Lemmon. 
-\item My Clojure-inclined colleagues and friends: Jon Anthony, Michael Bukatin, Simon Hawkin, Nic McPhee. 
+\item My colleagues and friends: Jon Anthony, Michael Bukatin, Simon Hawkin, Nic McPhee. 
 \item MN Clojure group and Boston Clojure meetup. 
 \end{itemize}
 \end{frame}
