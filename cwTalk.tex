@@ -35,12 +35,14 @@
 \begin{frame}
    \frametitle{ClojurEd project}
 ClojurEd is a project at UMM: developing a beginner-friendly setup for Clojure. 
-
-
-This is work in progress!!! 
+\uncover<2>{
+\begin{figure}
+\includegraphics[scale=0.4]{work-in-progress.jpg}
+\end{figure}
+This is work in progress!
 
 {\large\bf  Lots}  still needs to be done before we can use Clojure in an introductory class. 
-{\tt Need an icon here}
+}
 \end{frame}
 
 \begin{frame}
@@ -61,13 +63,13 @@ This is work in progress!!!
    \frametitle{A programming language for introductory class}
 \begin{itemize}
 \item {\bf Use} a programming language in an introductory class.
-\item {\bf  Teach} concepts and skills.
-\item {\bf  Teach} CS-style problem solving.
-\item The language needs to be simple, well-defined, and non-distracting (Felleisen et al, 2004).
-\item Dynamically typed.
-\item Functional languages are useful: focus on functions, modularity, abstraction.
-\item Functional languages: higher order functions (needed now with Javascript-based web dev)
-\item Interactive development: REPL. 
+\item <2->{\bf  Teach} concepts and skills.
+\item <3-> {\bf  Teach} CS-style problem solving.
+\item <4->The language needs to be simple, well-defined, and non-distracting (Felleisen et al, 2004).
+\item <5->Dynamically typed.
+\item <6-> Functional languages offer focus on functions, modularity, abstraction.
+\item <7-> Understanding of higher order functions may be useful later for parallel programming and Javascript-based web dev. 
+\item <8-> Interactive development promotes testing: REPL. 
 %\item Lisps have simple syntax and clearly defined semantics.
 \end{itemize}
 \end{frame}
@@ -78,8 +80,8 @@ This is work in progress!!!
 \item UMM uses Racket (a Lisp) in an introductory class. 
 \item 2010: a UMM student mentioned Clojure. 
 \item We've used Clojure in upper-level courses (Programming Languages, Programming for Parallel Architecture).
-\item Would like to use it in an introductory class (it's a long way).
-\item A couple of other schools use Clojure: Hampshire College, MA. 
+%\item Would like to use it in an introductory class (it's a long way).
+%\item Other schools using Clojure: Hampshire College, MA, maybe more? 
 \end{itemize}
 \end{frame}
 
@@ -92,6 +94,7 @@ Clojure offers:
 \item A large community that students can explore/benefit from: libraries, community-maintained docs, textbooks, blog posts, open source projects, meetups,....
 \item Concurrency.
 \item Integration with Java. 
+\item Elena's subjective opinion: collections done right. 
 \end{itemize}
 \end{frame}
 
@@ -100,44 +103,54 @@ Clojure offers:
 \begin{frame}
    \frametitle{What's lacking}
 \begin{itemize}
-\item Usability of error messages. {\tt give an example}
+\item Usability of error messages. %{\tt give an example}
 \item Beginner-friendly IDE. 
 \item Beginner-friendly project manager. 
 %\item Can't expect new students use emacs/vim and command line (at least if we want to keep CS enrollments/diversity). 
 \item Beginner-friendly graphical libraries. 
-\item More uniform behavior of strings, collections vs sequences, etc.   {\tt give an example}
+\item More uniform (from a beginner's standpoint) behavior of strings, collections vs sequences, etc.  
 \item Beginner-friendly textbooks (focus on concepts, use language as a learning tool). 
 \end{itemize}
 \end{frame}
 
 \section{Error messages transformations}
-\begin{frame}
+\begin{frame}[fragile]
    \frametitle{(Non)Usability of error messages}
- {\tt give an example -- perhaps better to just give an example?}
+\begin{verbatim}
+Exception in thread "main" java.lang.RuntimeException:
+EOF while reading, starting at line 3,
+compiling:(student/example.clj:4:1)
+	at clojure.lang.Compiler.load(Compiler.java:7137)
+	at clojure.lang.RT.loadResourceScript(RT.java:370)
+	at clojure.lang.RT.loadResourceScript(RT.java:361)....
+\end{verbatim}
 \begin{itemize}
-\item Phrased in terms of Java types.
+\item Phrased in terms of Java types and unfamiliar terminology.
 \item Java stack trace. 
 \item Often misleading. 
-\item Not particularly well integrated with IDEs (LightTable does some line highlighting). 
-\item Come from compiler, run-time system, REPL, testing frameworks (makes integration with IDE difficult). 
+\item Not well integrated with IDEs (LightTable does some line highlighting). 
+\item Come from compiler, run-time system, REPL, testing frameworks %(makes integration with IDE difficult). 
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
    \frametitle { What do we do about error messages}
 \begin{itemize}
-\item {\tt Post-processing Clojure messages}. 
-\item Filter stack trace.
+\item Our message:
+\begin{verbatim}
+Compilation error: end of file, starting at line 3,
+while compiling student/example.clj.
+Probably a non-closing parenthesis or bracket.
+\end{verbatim}
+\item Filter stack trace. 
 \item Transform using regular expressions. 
-\item Add pre-conditions to common functions ({\tt map, filter,} etc). 
+\item Add preconditions to common functions ({\tt map, filter,} etc). 
 \end{itemize}
 \end{frame}
 
-\subsection{Regular expressions}
-
-\subsection{Pre-conditions}
+\subsection{preconditions}
 \begin{frame}[fragile]
-   \frametitle {Adding pre-conditions to common functions }
+   \frametitle {Adding preconditions to common functions }
 Student code:
 \begin{verbatim}
 (map "inc" [1 2 3])
@@ -156,17 +169,55 @@ a function but is a string.
 \end{verbatim}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
  \frametitle {Benefits and issues}
 \begin{itemize}
+\item Add preconditions:
+\begin{verbatim}
+(defn map [argument1 & args]
+ {:pre [(check-if-function? "map" argument1)
+        (check-if-seqables? "map" args 2)]}
+  (apply clojure.core/map argument1 args))
+\end{verbatim}
 \item Can determine specific arguments that caused an error. 
 \item Need to overwrite many functions (e.g. arithmetic functions).
-\item 
-\item We overwrite predefined functions: need to load them into student code. 
+\item Need to load overwritten functions into student code and into REPL.
+\item Cannot overwrite all functions. 
+\item Need to be careful. 
+%\item Cannot overwrite user-defined functions. 
 \end{itemize}
 \end{frame}
 
+\subsection{Regular expressions}
+\begin{frame}[fragile]
+ \frametitle {Regular expression matching}
+Student's code (assuming not preconditions for {\tt keep}:
+\begin{verbatim}
+(keep even? 6)
+\end{verbatim}
+Original message:
+\begin{verbatim}
+java.lang.IllegalArgumentException: Don't know 
+how to create ISeq from: java.lang.Long
+\end{verbatim}
+Our message:
+\begin{verbatim}
+ Don't know how to create a sequence from a number. 
+\end{verbatim}
+Rephrase the message (if needed), substitute type names. 
+\end{frame}
+
+
 \subsection{Idea: hints and scenarios}
+
+\begin{frame}
+   \frametitle{User scenarios and hints}
+\begin{itemize}
+\item New idea we just started looking into.
+\item User scenarios: trying to follow a path of a student writing code. Error messages should guide them in the right direction.
+\item Add hints: sample code snippets and suggestions for what could be causing a problem: "could you be passing parameters in a wrong order"? 
+\end{itemize}
+\end{frame}
 
 \section{Beginner-friendly tools}
 
@@ -174,7 +225,7 @@ a function but is a string.
    \frametitle{Error messages processing}
 \begin{itemize}
 \item Minimal interference with IDE or leiningen.
-\item Need to catch error messages from compiler,  run-time system, REPL, testing.
+\item Need to be consistent with error messages from compiler,  run-time system, REPL, testing, other ways of running code?
 \item Looked into: integrating with IDE (LightTable), leiningen plugin. 
 \item Current plan for catching error messages: {\tt nrepl} middleware. 
 \end{itemize}
@@ -183,10 +234,15 @@ a function but is a string.
 \begin{frame}
    \frametitle{Leiningen plugin}
 \begin{itemize}
-\item Need to load functions with pre-conditions (and perhaps more) into student code. 
-\item 
-\item 
+\item Need to load functions with preconditions (and perhaps more) into student code. 
+\item Need to catch errors from various ways of running code and be consistent with processing it.
+\item May want to add info to error messages (hints). 
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{IDEs}
+
 \end{frame}
 
 \section{Future work (lots of it!), acknowledgments}
