@@ -75,18 +75,9 @@ This is work in progress!
 \end{frame}
 
 \begin{frame}
-   \frametitle{Current use of Lisp/Clojure in classes}
-\begin{itemize}
-\item UMM uses Racket (a Lisp) in an introductory class. 
-\item 2010: a UMM student mentioned Clojure. 
-\item We've used Clojure in upper-level courses (Programming Languages, Programming for Parallel Architecture).
-%\item Would like to use it in an introductory class (it's a long way).
-%\item Other schools using Clojure: Hampshire College, MA, maybe more? 
-\end{itemize}
-\end{frame}
+   \frametitle{What Clojure can bring to the table in an intro class?}
+Currently use Racket (a Lisp), "How to design programs" curriculum.
 
-\begin{frame}
-   \frametitle{What Clojure brings to the table?}
 Students are curious, would like to expand and apply what they learn. 
 
 Clojure offers:
@@ -94,9 +85,21 @@ Clojure offers:
 \item A large community that students can explore/benefit from: libraries, community-maintained docs, textbooks, blog posts, open source projects, meetups,....
 \item Concurrency.
 \item Integration with Java. 
-\item Elena's subjective opinion: collections done right. 
+%\item %Elena's subjective opinion: 
+\item Collections done right. 
 \end{itemize}
 \end{frame}
+
+%\begin{frame}
+%   \frametitle{Current use of Lisp/Clojure in classes}
+%\begin{itemize}
+%\item UMM uses Racket (a Lisp) in an introductory class. 
+%\item 2010: a UMM student mentioned Clojure. 
+%\item We've used Clojure in upper-level courses (Programming Languages, Programming for Parallel Architecture).
+%%\item Would like to use it in an introductory class (it's a long way).
+%%\item Other schools using Clojure: Hampshire College, MA, maybe more? 
+%\end{itemize}
+%\end{frame}
 
 \section{Why {\bf not} (yet) Clojure}
 
@@ -129,7 +132,7 @@ compiling:(student/example.clj:4:1)
 \item Java stack trace. 
 \item Often misleading. 
 \item Not well integrated with IDEs (LightTable does some line highlighting). 
-\item Come from compiler, run-time system, REPL, testing frameworks %(makes integration with IDE difficult). 
+%\item Come from compiler, run-time system, REPL, testing frameworks %(makes integration with IDE difficult). 
 \end{itemize}
 \end{frame}
 
@@ -179,7 +182,7 @@ a function but is a string.
         (check-if-seqables? "map" args 2)]}
   (apply clojure.core/map argument1 args))
 \end{verbatim}
-\item Can determine specific arguments that caused an error. 
+\item Can determine specific arguments that have caused an error. 
 \item Need to overwrite many functions (e.g. arithmetic functions).
 \item Need to load overwritten functions into student code and into REPL.
 \item Cannot overwrite all functions. 
@@ -191,7 +194,7 @@ a function but is a string.
 \subsection{Regular expressions}
 \begin{frame}[fragile]
  \frametitle {Regular expression matching}
-Student's code (assuming not preconditions for {\tt keep}:
+Student's code (assuming no preconditions for {\tt keep}):
 \begin{verbatim}
 (keep even? 6)
 \end{verbatim}
@@ -227,7 +230,7 @@ Rephrase the message (if needed), substitute type names.
 \item Minimal interference with IDE or leiningen.
 \item Need to be consistent with error messages from compiler,  run-time system, REPL, testing, other ways of running code?
 \item Looked into: integrating with IDE (LightTable), leiningen plugin. 
-\item Current plan for catching error messages: {\tt nrepl} middleware. 
+\item Current plan for catching error messages: {\tt nREPL} middleware. 
 \end{itemize}
 \end{frame}
 
@@ -237,7 +240,7 @@ Rephrase the message (if needed), substitute type names.
 \item Work in progress. 
 \item Need to load functions with preconditions (and perhaps more) into student code. 
 \item Need to catch errors from various ways of running code and be consistent with processing it.
-\item May want to add info to error messages (hints). 
+%\item May want to add info to error messages (hints). 
 \end{itemize}
 \end{frame}
 
@@ -246,7 +249,7 @@ Rephrase the message (if needed), substitute type names.
 \begin{itemize}
 \item LightTable and Nightcode look promising.
 \item We may want to display hints: plugins. 
-\item Need to integrate functions with preconditions into the project.
+%\item Need to integrate functions with preconditions into the project.
 \item Need to add beginner-friendly project management to IDEs (no command line!)
 \end{itemize}
 \end{frame}
@@ -259,6 +262,7 @@ Rephrase the message (if needed), substitute type names.
 \item Finish the technical setup for at least one IDE.
 \item Usability studies: try it on actual students!
 \item Modify based on this feedback. 
+\item Develop lecture notes (possible future textbook) that focus on CS problem solving while using Clojure. 
 \end{itemize}
 \end{frame}
 
