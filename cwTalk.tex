@@ -82,7 +82,7 @@ Students are curious, would like to expand and apply what they learn.
 
 Clojure offers:
 \begin{itemize}
-\item A large community that students can explore/benefit from: libraries, community-maintained docs, textbooks, blog posts, open source projects, meetups,....
+\item A large community that students can explore/benefit from: libraries, community-maintained docs, textbooks, forums, open source projects, meetups,....
 \item Concurrency.
 \item Integration with Java. 
 %\item %Elena's subjective opinion: 
@@ -139,7 +139,7 @@ compiling:(student/example.clj:4:1)
 \begin{frame}[fragile]
    \frametitle { What do we do about error messages}
 \begin{itemize}
-\item Our message:
+\item Our transformed message:
 \begin{verbatim}
 Compilation error: end of file, starting at line 3,
 while compiling student/example.clj.
@@ -235,9 +235,9 @@ Rephrase the message (if needed), substitute type names.
 \end{frame}
 
 \begin{frame}
-   \frametitle{Leiningen plugin}
+   \frametitle{Leiningen plugin (work in progress)}
 \begin{itemize}
-\item Work in progress. 
+%\item Work in progress. 
 \item Need to load functions with preconditions (and perhaps more) into student code. 
 \item Need to catch errors from various ways of running code and be consistent with processing it.
 %\item May want to add info to error messages (hints). 
@@ -245,7 +245,7 @@ Rephrase the message (if needed), substitute type names.
 \end{frame}
 
 \begin{frame}
-   \frametitle{IDEs}
+   \frametitle{Integrating with IDEs (work in progress)}
 \begin{itemize}
 \item LightTable and Nightcode look promising.
 \item We may want to display hints: plugins. 
@@ -261,7 +261,8 @@ Rephrase the message (if needed), substitute type names.
 \begin{itemize}
 \item Finish the technical setup for at least one IDE.
 \item Usability studies: try it on actual students!
-\item Modify based on this feedback. 
+\item Experiment with hints. 
+\item Modify based on feedback. 
 \item Develop lecture notes (possible future textbook) that focus on CS problem solving while using Clojure. 
 \end{itemize}
 \end{frame}
